@@ -28,6 +28,7 @@ export const Signup = () => {
       .then((data) => {
         // console.log(data);
         localStorage.setItem("token", "Bearer " + data.token);
+        window.location = "/";
       })
       .catch((error) => {
         console.error("Error:", error);

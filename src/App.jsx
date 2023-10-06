@@ -4,6 +4,7 @@ import { Signup } from "./components/Signup";
 import { AppBar } from "./components/AppBar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AddCourse from "./components/AddCourse";
+import Courses from "./components/Courses";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       style={{
         backgroundColor: "#eeeeee",
         width: "100vw",
-        height: "100vh",
+        minHeight: "100vh",
+        maxHeight: "100%",
       }}
     >
       <Router>
@@ -20,6 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/addcourse" element={<AddCourse />} />
+          <Route path="/courses" element={<Courses />} />
         </Routes>
       </Router>
     </div>

@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const AppBar = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState(null);
@@ -41,6 +41,20 @@ export const AppBar = () => {
             <Typography style={{ marginRight: "20px" }} variant="h6">
               {username}
             </Typography>
+            <Button
+              onClick={() => navigate("/courses")}
+              variant="contained"
+              style={{ marginRight: "10px" }}
+            >
+              Courses
+            </Button>
+            <Button
+              onClick={() => navigate("/addcourse")}
+              variant="contained"
+              style={{ marginRight: "10px" }}
+            >
+              Add course
+            </Button>
             <Button
               onClick={handleLogout}
               variant="contained"
