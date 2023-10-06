@@ -24,13 +24,15 @@ export const Signin = () => {
           },
         }
       )
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data;
+      })
       .then((data) => {
-        // console.log(data);
         localStorage.setItem("token", "Bearer " + data.token);
+        window.location = "/";
       })
       .catch((error) => {
-        console.error("Error:", error);
+        alert(error.response.data.message);
       });
   };
   return (
