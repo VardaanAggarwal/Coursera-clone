@@ -5,6 +5,7 @@ const AddCourse = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(null);
+  const [imageLink, setImageLink] = useState("");
   const handleTitleInput = (e) => {
     setTitle(e.target.value);
   };
@@ -14,6 +15,9 @@ const AddCourse = () => {
   const handlePriceInput = (e) => {
     setPrice(e.target.value);
   };
+  const handleImageInput = (e) => {
+    setImageLink(e.target.value);
+  };
   const handleAddCourse = () => {
     axios
       .post(
@@ -22,6 +26,7 @@ const AddCourse = () => {
           title,
           description,
           price,
+          imageLink,
         },
         {
           headers: {
@@ -29,8 +34,9 @@ const AddCourse = () => {
           },
         }
       )
-      .then((res) => res.data)
-      .then((data) => console.log(data))
+      .then((res) => {
+        alert("course added");
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -79,7 +85,15 @@ const AddCourse = () => {
             />
             <br />
             <br />
-
+            <TextField
+              onChange={handleImageInput}
+              fullWidth
+              id="outlined-basic"
+              label="Image"
+              variant="outlined"
+            />
+            <br />
+            <br />
             <Button variant="contained" onClick={handleAddCourse}>
               Add Course
             </Button>

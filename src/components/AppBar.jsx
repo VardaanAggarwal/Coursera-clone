@@ -15,7 +15,6 @@ export const AppBar = () => {
       .then((response) => response.data)
       .then((data) => {
         setUsername(data.username);
-        console.log(data);
       });
   }, []);
   const handleLogout = () => {

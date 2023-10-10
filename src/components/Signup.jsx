@@ -26,7 +26,6 @@ export const Signup = () => {
       )
       .then((res) => res.data)
       .then((data) => {
-        // console.log(data);
         localStorage.setItem("token", "Bearer " + data.token);
         window.location = "/";
       })

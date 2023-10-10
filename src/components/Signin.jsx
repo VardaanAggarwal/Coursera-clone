@@ -1,9 +1,17 @@
-import { Button, TextField, Card, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Card,
+  Typography,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
 export const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const handleUsernameInput = (e) => {
     setUsername(e.target.value);
   };
@@ -32,7 +40,7 @@ export const Signin = () => {
         window.location = "/";
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        setError(error.response.data.message);
       });
   };
   return (
@@ -51,6 +59,14 @@ export const Signin = () => {
             Welcome Back. Sign in below.
           </Typography>
         </div>
+        <br />
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        )}
+        <br />
         <Card variant="outlined" style={{ width: 400, padding: 50 }}>
           <TextField
             onChange={handleUsernameInput}
