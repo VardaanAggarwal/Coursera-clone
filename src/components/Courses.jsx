@@ -1,4 +1,4 @@
-import { Card, Typography, Button } from "@mui/material";
+import { Card, Typography, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -82,7 +82,7 @@ const Courses = () => {
             );
           })
         ) : (
-          <p>something</p>
+          <CircularProgress color="success" />
         )}
       </div>
     </div>

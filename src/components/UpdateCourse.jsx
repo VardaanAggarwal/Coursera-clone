@@ -1,7 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Typography, TextField, Button } from "@mui/material";
+import {
+  Card,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  Skeleton,
+} from "@mui/material";
 
 const UpdateCourse = () => {
   const { courseId } = useParams();
@@ -26,17 +33,48 @@ const UpdateCourse = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "space-around",
-        marginTop: "50px",
+        justifyContent: "space-evenly",
+        margin: "40px 100px",
       }}
     >
       {isLoading ? (
-        <p>Loading...</p>
+        <div>
+          {/* For variant="text", adjust the height via font-size */}
+          <Skeleton animation="wave" variant="text" sx={{ fontSize: "1rem" }} />
+          <br />
+          {/* For other variants, adjust the size with `width` and `height` */}
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={40}
+            height={40}
+          />
+          <br />
+          <br />
+          <Skeleton
+            animation="wave"
+            variant="rectangular"
+            width={210}
+            height={60}
+          />
+          <br />
+          <br />
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width={210}
+            height={60}
+          />
+        </div>
       ) : (
-        <>
-          <CourseCard course={course} />
-          <UpdateCard course={course} setCourse={setCourse} />
-        </>
+        <Grid container>
+          <Grid item lg={8} md={12} sm={12}>
+            <UpdateCard course={course} setCourse={setCourse} />
+          </Grid>
+          <Grid item lg={4} md={12} sm={12}>
+            <CourseCard course={course} />
+          </Grid>
+        </Grid>
       )}
     </div>
   );
