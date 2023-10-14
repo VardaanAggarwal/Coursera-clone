@@ -8,10 +8,15 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../store/atom/user";
+import { useNavigate } from "react-router-dom";
 export const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const setUser = useSetRecoilState(userState);
   const handleUsernameInput = (e) => {
     setUsername(e.target.value);
   };
@@ -20,24 +25,20 @@ export const Signin = () => {
   };
   const handleSignIn = () => {
     axios
-      .post(
-        "http://localhost:3000/admin/login",
-        {
-          username: username,
-          password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("http://localhost:3000/admin/login", {
+        username: username,
+        password: password,
+      })
       .then((res) => {
         return res.data;
       })
       .then((data) => {
         localStorage.setItem("token", "Bearer " + data.token);
-        window.location = "/";
+        setUser({
+          isLoading: false,
+          userEmail: username,
+        });
+        navigate("/courses");
       })
       .catch((error) => {
         setError(error.response.data.message);

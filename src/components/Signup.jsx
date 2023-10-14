@@ -1,33 +1,29 @@
 import { Button, TextField, Card, Typography } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../store/atom/user";
+import { useNavigate } from "react-router-dom";
 export const Signup = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleUsernameInput = (e) => {
-    setUsername(e.target.value);
-  };
-  const handlePasswordInput = (e) => {
-    setPassword(e.target.value);
-  };
+  const setUser = useSetRecoilState(userState);
+
   const handleSignUp = () => {
     axios
-      .post(
-        "http://localhost:3000/admin/signup",
-        {
-          username: username,
-          password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("http://localhost:3000/admin/signup", {
+        username: username,
+        password: password,
+      })
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", "Bearer " + data.token);
-        window.location = "/";
+        setUser({
+          isLoading: false,
+          userEmail: username,
+        });
+        navigate("/courses");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -51,7 +47,9 @@ export const Signup = () => {
         </div>
         <Card variant="outlined" style={{ width: 400, padding: 50 }}>
           <TextField
-            onChange={handleUsernameInput}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
             fullWidth
             label="Username"
             variant="outlined"
@@ -59,7 +57,9 @@ export const Signup = () => {
           <br />
           <br />
           <TextField
-            onChange={handlePasswordInput}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             fullWidth
             id="outlined-basic"
             type="password"

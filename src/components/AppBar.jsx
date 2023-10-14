@@ -1,25 +1,22 @@
 import { Button, Typography } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { userEmailState } from "../store/selectors/userEmailState";
+import { userLoadingState } from "../store/selectors/userLoadingState";
+import { userState } from "../store/atom/user";
 export const AppBar = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(null);
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/admin/me", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((response) => response.data)
-      .then((data) => {
-        setUsername(data.username);
-      });
-  }, []);
+  const isUserLoading = useRecoilValue(userLoadingState);
+  const username = useRecoilValue(userEmailState);
+  const setUser = useSetRecoilState(userState);
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location = "/";
+    setUser({
+      isLoading: false,
+      userEmail: null,
+    });
+    navigate("/");
   };
   return (
     <div
@@ -32,10 +29,16 @@ export const AppBar = () => {
       }}
     >
       <div>
-        <Typography variant="h6">Coursera</Typography>
+        <Typography
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/")}
+          variant="h6"
+        >
+          Coursera
+        </Typography>
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        {username ? (
+        {isUserLoading || username ? (
           <>
             <Typography style={{ marginRight: "20px" }} variant="h6">
               {username}
