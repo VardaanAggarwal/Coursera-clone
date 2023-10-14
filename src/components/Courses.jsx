@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Courses = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState(null);
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/admin/courses", {
