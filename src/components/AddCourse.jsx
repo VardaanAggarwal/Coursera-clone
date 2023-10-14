@@ -6,18 +6,7 @@ const AddCourse = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(null);
   const [imageLink, setImageLink] = useState("");
-  const handleTitleInput = (e) => {
-    setTitle(e.target.value);
-  };
-  const handleDescriptionInput = (e) => {
-    setDescription(e.target.value);
-  };
-  const handlePriceInput = (e) => {
-    setPrice(e.target.value);
-  };
-  const handleImageInput = (e) => {
-    setImageLink(e.target.value);
-  };
+
   const handleAddCourse = () => {
     axios
       .post(
@@ -63,12 +52,16 @@ const AddCourse = () => {
               fullWidth
               label="Title"
               variant="outlined"
-              onChange={handleTitleInput}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
             />
             <br />
             <br />
             <TextField
-              onChange={handleDescriptionInput}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
               fullWidth
               id="outlined-basic"
               label="Description"
@@ -77,7 +70,9 @@ const AddCourse = () => {
             <br />
             <br />
             <TextField
-              onChange={handlePriceInput}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
               fullWidth
               id="outlined-basic"
               label="Price"
@@ -86,7 +81,9 @@ const AddCourse = () => {
             <br />
             <br />
             <TextField
-              onChange={handleImageInput}
+              onChange={(e) => {
+                setImageLink(e.target.value);
+              }}
               fullWidth
               id="outlined-basic"
               label="Image"
