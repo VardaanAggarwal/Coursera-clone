@@ -25,7 +25,7 @@ export const AppBar = () => {
         justifyContent: "space-between",
         paddingTop: "5px",
         paddingLeft: "10px",
-        paddingRight: "10px",
+        paddingRight: "20px",
       }}
     >
       <div>
@@ -40,7 +40,7 @@ export const AppBar = () => {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         {isUserLoading || username ? (
           <>
-            <Typography style={{ marginRight: "20px" }} variant="h6">
+            <Typography style={{ marginRight: "20px" }} variant="h5">
               {username}
             </Typography>
             <Button
@@ -70,7 +70,7 @@ export const AppBar = () => {
             <Button
               onClick={() => navigate("/signup")}
               variant="contained"
-              style={{ marginRight: "10px" }}
+              style={{ marginRight: "10px", marginLeft: "-20px" }}
             >
               Signup
             </Button>

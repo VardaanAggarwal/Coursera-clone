@@ -9,12 +9,20 @@ import {
   Grid,
   Skeleton,
 } from "@mui/material";
-
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { courseState } from "../store/atom/course";
+import {
+  courseDescriptionState,
+  courseDetailsState,
+  courseImageState,
+  courseLoadingState,
+  coursePriceState,
+  courseTitleState,
+} from "../store/selectors/course";
 const UpdateCourse = () => {
   const { courseId } = useParams();
-  const [course, setCourse] = useState({});
-
-  const [isLoading, setIsLoading] = useState(true);
+  const setCourse = useSetRecoilState(courseState);
+  const isCourseLoading = useRecoilValue(courseLoadingState);
 
   useEffect(() => {
     axios
@@ -25,8 +33,10 @@ const UpdateCourse = () => {
       })
       .then((res) => res.data)
       .then((data) => {
-        setCourse(data.course);
-        setIsLoading(false);
+        setCourse({
+          course: data.course,
+          isLoading: false,
+        });
       });
   }, []);
   return (
@@ -37,7 +47,7 @@ const UpdateCourse = () => {
         margin: "40px 100px",
       }}
     >
-      {isLoading ? (
+      {isCourseLoading ? (
         <div>
           {/* For variant="text", adjust the height via font-size */}
           <Skeleton animation="wave" variant="text" sx={{ fontSize: "1rem" }} />
@@ -69,10 +79,10 @@ const UpdateCourse = () => {
       ) : (
         <Grid container>
           <Grid item lg={8} md={12} sm={12}>
-            <UpdateCard course={course} setCourse={setCourse} />
+            <UpdateCard />
           </Grid>
           <Grid item lg={4} md={12} sm={12}>
-            <CourseCard course={course} />
+            <CourseCard />
           </Grid>
         </Grid>
       )}
@@ -80,7 +90,11 @@ const UpdateCourse = () => {
   );
 };
 
-export const CourseCard = ({ course }) => {
+export const CourseCard = () => {
+  const title = useRecoilValue(courseTitleState);
+  const description = useRecoilValue(courseDescriptionState);
+  const price = useRecoilValue(coursePriceState);
+  const image = useRecoilValue(courseImageState);
   return (
     <div>
       <Card
@@ -97,23 +111,47 @@ export const CourseCard = ({ course }) => {
         }}
         variant="outlined"
       >
-        <img style={{ maxWidth: "400px" }} src={course.imageLink} alt="" />
-        <Typography variant="h5">{course.title}</Typography>
-        <Typography variant="subtitle1">{course.description}</Typography>
-        <Typography variant="subtitle2">Rs. {course.price}</Typography>
+        <img style={{ maxWidth: "400px" }} src={image} alt="" />
+        <Typography variant="h5">{title}</Typography>
+        <Typography variant="subtitle1">{description}</Typography>
+        <Typography variant="subtitle2">Rs. {price}</Typography>
       </Card>
     </div>
   );
 };
 
-export const UpdateCard = ({ course, setCourse }) => {
-  const [title, setTitle] = useState(course.title);
-  const [description, setDescription] = useState(course.description);
-  const [price, setPrice] = useState(course.price);
-  const [imageLink, setImageLink] = useState(course.imageLink);
+export const UpdateCard = () => {
+  // Use useRecoilValue instead of useRecoilState
+  const course = useRecoilValue(courseDetailsState);
+  const setCourse = useSetRecoilState(courseState);
+
+  // Use useEffect to update state once course is available
+  useEffect(() => {
+    if (course) {
+      setTitle(course.title);
+      setDescription(course.description);
+      setPrice(course.price);
+      setImageLink(course.imageLink);
+    }
+  }, [course]);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageLink, setImageLink] = useState("");
 
   const handleUpdateCourse = () => {
-    setCourse((prev) => ({ ...prev, title, description, price, imageLink }));
+    const updatedCourse = {
+      ...course,
+      title,
+      description,
+      price,
+      imageLink,
+    };
+    setCourse({
+      isLoading: false,
+      course: updatedCourse,
+    });
     axios
       .put(
         "http://localhost:3000/admin/courses/" + course._id,

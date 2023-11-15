@@ -17,6 +17,7 @@ const Home = () => {
         minWidth: "100vw",
         minHeight: "100vh",
         marginTop: "-100px",
+        backgroundColor: "#cfcfcf",
       }}
     >
       <Grid
@@ -49,9 +50,9 @@ const Home = () => {
         <Grid item lg={4} md={12} sm={12}>
           <img
             style={{
-              width: "400px",
+              width: "300px",
             }}
-            src="https://poochle-dev.s3.ap-south-1.amazonaws.com/admin/COURSE/cover/1684559711596WhatsApp%20Image%202023-05-20%20at%2010.44.39%20AM.jpeg"
+            src="https://s3.memeshappen.com/memes/Right-donkey-Time-to-study-meme-41260.jpg"
             alt=""
           />
         </Grid>

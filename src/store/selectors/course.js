@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { courseState } from "../atom/course";
 
-export const isCourseLoading = selector({
+export const courseLoadingState = selector({
   key: "courseLoadingState",
   get: ({ get }) => {
     const state = get(courseState);
@@ -21,27 +21,39 @@ export const courseTitleState = selector({
   key: "courseTitleState",
   get: ({ get }) => {
     const state = get(courseState);
-    return state.course.title;
+    if (state.course) {
+      return state.course.title;
+    }
+    return "";
   },
 });
 export const courseDescriptionState = selector({
   key: "courseDescriptionState",
   get: ({ get }) => {
     const state = get(courseState);
-    return state.course.description;
+    if (state.course) {
+      return state.course.description;
+    }
+    return "";
   },
 });
 export const coursePriceState = selector({
   key: "coursePriceState",
   get: ({ get }) => {
     const state = get(courseState);
-    return state.course.price;
+    if (state.course) {
+      return state.course.price;
+    }
+    return "";
   },
 });
 export const courseImageState = selector({
   key: "courseImageState",
   get: ({ get }) => {
     const state = get(courseState);
-    return state.course.imageLink;
+    if (state.course) {
+      return state.course.imageLink;
+    }
+    return "";
   },
 });
