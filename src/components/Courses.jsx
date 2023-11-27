@@ -57,8 +57,8 @@ const Courses = () => {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    maxWidth: "600px",
-                    maxHeight: "600px",
+                    maxWidth: "25vw",
+                    maxHeight: "72vh",
                     padding: 20,
                     margin: 20,
                     borderRadius: "40px",
@@ -67,29 +67,29 @@ const Courses = () => {
                   variant="outlined"
                 >
                   <img
-                    style={{ maxWidth: "400px", marginBottom: "5px" }}
+                    style={{ maxWidth: "25vw", marginBottom: "5px" , }}
                     src={course.imageLink}
                     alt=""
                   />
-                  <Typography style={{ marginBottom: "5px" }} variant="h5">
+                  <p style={{ marginBottom: "5px" , fontWeight:"bolder" , fontSize:"23px"}}>
                     {course.title}
-                  </Typography>
-                  <Typography
+                  </p>
+                  <p
                     style={{ marginBottom: "5px" }}
-                    variant="subtitle1"
+                
                   >
                     {course.description}
-                  </Typography>
-                  <Typography
-                    style={{ marginBottom: "5px" }}
-                    variant="subtitle2"
+                  </p>
+                  <p
+                    style={{ marginBottom: "5px" , fontWeight:"bolder"}}
+                   
                   >
                     Rs. {course.price}
-                  </Typography>
+                  </p>
                   <Button
                     onClick={() => navigate("/course/" + course._id)}
                     variant="contained"
-                    style={{ marginRight: "10px" }}
+                    style={{ marginRight: "10px", marginBottom:"5px" }}
                   >
                     Edit
                   </Button>
