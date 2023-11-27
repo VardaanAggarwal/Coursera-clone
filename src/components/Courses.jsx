@@ -58,7 +58,9 @@ const Courses = () => {
                     flexDirection: "column",
                     justifyContent: "center",
                     maxWidth: "25vw",
+                    minWidth:"25vw",
                     maxHeight: "72vh",
+                    minHeight:"60vh",
                     padding: 20,
                     margin: 20,
                     borderRadius: "40px",
@@ -67,7 +69,7 @@ const Courses = () => {
                   variant="outlined"
                 >
                   <img
-                    style={{ maxWidth: "25vw", marginBottom: "5px" , }}
+                    style={{ maxWidth: "25vw", marginBottom: "5px" , maxHeight:"25vh"}}
                     src={course.imageLink}
                     alt=""
                   />
