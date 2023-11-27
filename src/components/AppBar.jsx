@@ -21,16 +21,16 @@ export const AppBar = () => {
   return (
     <div
       style={{
+        backgroundColor: "black",
         display: "flex",
         justifyContent: "space-between",
-        paddingTop: "5px",
-        paddingLeft: "10px",
-        paddingRight: "20px",
+        padding: "20px",
+        marginBottom: "20px",
       }}
     >
       <div>
         <Typography
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color: "white" }}
           onClick={() => navigate("/")}
           variant="h6"
         >
@@ -40,7 +40,10 @@ export const AppBar = () => {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         {isUserLoading || username ? (
           <>
-            <Typography style={{ marginRight: "20px" }} variant="h5">
+            <Typography
+              style={{ marginRight: "20px", color: "white" }}
+              variant="h5"
+            >
               {username}
             </Typography>
             <Button

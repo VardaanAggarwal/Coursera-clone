@@ -17,7 +17,7 @@ function App() {
     <RecoilRoot>
       <div
         style={{
-          backgroundColor: "#eeeeee",
+          backgroundColor: "white",
           width: "100vw",
           minHeight: "100vh",
           maxHeight: "100%",
